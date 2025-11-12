@@ -21,6 +21,7 @@ import math
 SCREENWIDTH, SCREENHEIGHT = 950, 880
 FPS = 60
 
+
 class BaseScreen:
     """Classe base para telas do jogo.
 
