@@ -1,4 +1,3 @@
-import os
 import pygame
 
 def init_audio(base_dir):
@@ -19,7 +18,7 @@ def init_audio(base_dir):
     }
 
     def p(caminho):
-        return os.path.join(base_dir, caminho)
+        return base_dir + "/" + caminho  # Substituição simples para os.path.join
 
     # Música de fundo
     trilha_path = p("sons/sons/trilha.mp3")

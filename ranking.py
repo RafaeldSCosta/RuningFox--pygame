@@ -1,22 +1,13 @@
 import pygame
 import json
-import os
-
-# Caminho base para assets
-BASE_DIR = os.path.dirname(os.path.abspath(_file_))
-def get_asset_path(relative_path):
-    return os.path.join(BASE_DIR, relative_path)
 
 # Arquivo para salvar scores
-SCORES_FILE = get_asset_path("scores.json")
+SCORES_FILE = "scores.json"
 
 def load_scores():
     """Carrega scores do arquivo JSON."""
-    try:
-        with open(SCORES_FILE, "r") as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
+    with open(SCORES_FILE, "r") as f:
+        return json.load(f)
 
 def save_scores(scores):
     """Salva scores no arquivo JSON, limitado a 10 entradas."""
@@ -42,11 +33,8 @@ def text_input_screen(screen, prompt="Digite seu nome:", bg_path="imagens_pygame
     running = True
 
     # Carrega fundo
-    try:
-        bg = pygame.image.load(get_asset_path(bg_path)).convert()
-        bg = pygame.transform.scale(bg, (SCREENWIDTH, SCREENHEIGHT))
-    except:
-        bg = None
+    bg = pygame.image.load(bg_path).convert()
+    bg = pygame.transform.scale(bg, (SCREENWIDTH, SCREENHEIGHT))
 
     while running:
         for event in pygame.event.get():
@@ -63,10 +51,7 @@ def text_input_screen(screen, prompt="Digite seu nome:", bg_path="imagens_pygame
                         text += event.unicode
 
         # Desenha fundo
-        if bg:
-            screen.blit(bg, (0, 0))
-        else:
-            screen.fill((50, 50, 50))
+        screen.blit(bg, (0, 0))
 
         # Prompt centralizado
         prompt_surf = font.render(prompt, True, (255, 255, 255))
@@ -99,11 +84,8 @@ def show_ranking_screen(screen, player_name=None, player_time=None, bg_path="ima
     running = True
 
     # Carrega fundo
-    try:
-        bg = pygame.image.load(get_asset_path(bg_path)).convert()
-        bg = pygame.transform.scale(bg, (SCREENWIDTH, SCREENHEIGHT))
-    except:
-        bg = None
+    bg = pygame.image.load(bg_path).convert()
+    bg = pygame.transform.scale(bg, (SCREENWIDTH, SCREENHEIGHT))
 
     while running:
         for event in pygame.event.get():
@@ -120,10 +102,7 @@ def show_ranking_screen(screen, player_name=None, player_time=None, bg_path="ima
                     exit()
 
         # Desenha fundo
-        if bg:
-            screen.blit(bg, (0, 0))
-        else:
-            screen.fill((50, 50, 50))
+        screen.blit(bg, (0, 0))
 
         # Título centralizado (maior, mais para baixo)
         title = font_title.render("RANKING", True, (255, 255, 255))

@@ -1,6 +1,5 @@
 import pygame
 import sys
-import os
 from screens import GameStateManager, Start, End, Level, mostrar_instrucao, mostrar_tela_level, mostrar_end_screen
 from classes.game import CruzamentoFazenda
 from classes.hud import HUD
@@ -11,13 +10,8 @@ pygame.init()
 SCREENWIDTH, SCREENHEIGHT = 950, 880
 FPS = 60
 
-# --- Caminho base ---
-BASE_DIR = os.path.dirname(os.path.abspath(_file_))
-def get_path(relative_path):
-    return os.path.join(BASE_DIR, relative_path)
-
 # --- Inicializa áudio ---
-audio = init_audio(BASE_DIR)
+audio = init_audio(".")
 
 # --- Estados e inicialização ---
 STATE = "menu"
@@ -51,12 +45,11 @@ while True:
                     audio["som_start"].play()
 
                 tempo_inicio = pygame.time.get_ticks()
-                mostrar_instrucao(screen, clock, get_path("imagens_pygame/instru.png"), 20000)
-                mostrar_tela_level(screen, clock, get_path("imagens_pygame/level_1.png"), 2000)
+                mostrar_instrucao(screen, clock, "imagens_pygame/instru.png", 20000)
+                mostrar_tela_level(screen, clock, "imagens_pygame/level_1.png", 2000)
                 tempo_inicio = pygame.time.get_ticks()
                 STATE = "jogo"
                 end_sequence_handled = False
-
 
         elif STATE == "end":
             menu_end.handle_event(event)
@@ -83,6 +76,7 @@ while True:
                     jogo = CruzamentoFazenda()
                     hud = HUD(jogo.janela, jogo)
                     tempo_inicio = pygame.time.get_ticks()
+
     # --- Telas ---
     if STATE == "menu":
         menu_start.run()
@@ -100,8 +94,6 @@ while True:
             tempo_decorrido = (pygame.time.get_ticks() - tempo_inicio) // 1000
             hud.desenhar_timer(tempo_decorrido)
 
-        pygame.display.update()
-
         if jogo.vidas <= 0 or jogo.game_over:
             pygame.mixer.music.stop()
             if audio["som_game_over"]:
@@ -115,12 +107,13 @@ while True:
         if jogo.fases.fase == 2 and not hasattr(jogo, "level2_shown"):
             if audio["som_troca_fase"]:
                 audio["som_troca_fase"].play()
-            mostrar_tela_level(screen, clock, get_path("imagens_pygame/level_2.png"), 2000)
+            mostrar_tela_level(screen, clock, "imagens_pygame/level_2.png", 2000)
             jogo.level2_shown = True
+
     elif STATE == "end":
         if not end_sequence_handled:
             is_win = getattr(jogo, "reached_ovos", False)
-            end_img_path = get_path("imagens_pygame/win.png") if is_win else get_path("imagens_pygame/game_over.png")
+            end_img_path = "imagens_pygame/win.png" if is_win else "imagens_pygame/game_over.png"
             mostrar_end_screen(screen, end_img_path)
 
             if tempo_inicio is not None:
@@ -132,7 +125,7 @@ while True:
                 player_name = ranking.text_input_screen(
                     screen,
                     prompt="Parabéns! Digite seu nome:",
-                    bg_path=get_path("imagens_pygame/ranking.png")
+                    bg_path="imagens_pygame/ranking.png"
                 )
                 if not player_name:
                     player_name = "Player"
@@ -142,7 +135,7 @@ while True:
                     screen,
                     player_name=player_name,
                     player_time=elapsed_seconds,
-                    bg_path=get_path("imagens_pygame/ranking.png")
+                    bg_path="imagens_pygame/ranking.png"
                 )
                 if result == 'restart':
                     jogo = CruzamentoFazenda()
@@ -158,7 +151,7 @@ while True:
                     screen,
                     player_name=None,
                     player_time=None,
-                    bg_path=get_path("imagens_pygame/ranking.png")
+                    bg_path="imagens_pygame/ranking.png"
                 )
                 if result == 'restart':
                     jogo = CruzamentoFazenda()

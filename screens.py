@@ -1,27 +1,17 @@
 import pygame
 import sys
-import os
 import random
 import math
 
 SCREENWIDTH, SCREENHEIGHT = 950, 880
 FPS = 60
 
-BASE_DIR = os.path.dirname(os.path.abspath(_file_))
-def get_asset_path(relative_path):
-    return os.path.join(BASE_DIR, relative_path)
-
 class BaseScreen:
-    def _init_(self, display, gsm, bg_path):
+    def __init__(self, display, gsm, bg_path):
         self.display = display
         self.gsm = gsm
-        full_bg_path = get_asset_path(bg_path)
-        try:
-            self.bg = pygame.image.load(full_bg_path).convert()
-            self.bg = pygame.transform.scale(self.bg, (SCREENWIDTH, SCREENHEIGHT))
-        except Exception:
-            print(f"⚠ Não consegui carregar {full_bg_path}")
-            self.bg = None
+        self.bg = pygame.image.load(bg_path).convert()
+        self.bg = pygame.transform.scale(self.bg, (SCREENWIDTH, SCREENHEIGHT))
         self.font_title = pygame.font.SysFont(None, 72)
         self.font_text = pygame.font.SysFont(None, 36)
 
@@ -33,16 +23,12 @@ class BaseScreen:
 
 # --- TELA DE INÍCIO ---
 class Start(BaseScreen):
-    def _init_(self, display, gsm):
-        super()._init_(display, gsm, "imagens_pygame/imagem_start.png")
+    def __init__(self, display, gsm):
+        super().__init__(display, gsm, "imagens_pygame/imagem_start.png")
 
         # --- BOTÃO START ---
-        button_image_path = get_asset_path("imagens_pygame/botao_start.png")
-        try:
-            self.start_button_image = pygame.image.load(button_image_path).convert_alpha()
-        except Exception:
-            self.start_button_image = pygame.Surface((200,80))
-            self.start_button_image.fill((100,200,100))
+        button_image_path = "imagens_pygame/botao_start.png"
+        self.start_button_image = pygame.image.load(button_image_path).convert_alpha()
         target_width = 200
         original_width, original_height = self.start_button_image.get_size()
         new_height = int(original_height * (target_width / original_width))
@@ -54,11 +40,7 @@ class Start(BaseScreen):
         # --- NUVENS EM MOVIMENTO ---
         self.nuvens = []
         for i in range(1, 5):
-            try:
-                img = pygame.image.load(get_asset_path(f"imagens_pygame/nuvem{i}.png")).convert_alpha()
-            except Exception:
-                img = pygame.Surface((200,100), pygame.SRCALPHA)
-                img.fill((255,255,255,50))
+            img = pygame.image.load(f"imagens_pygame/nuvem{i}.png").convert_alpha()
             escala = pygame.transform.scale(img, (int(img.get_width() * 1.0), int(img.get_height() * 1.0)))
             x = i * 250
             base_y = random.randint(40, 180) + (i * 5)
@@ -67,13 +49,9 @@ class Start(BaseScreen):
             self.nuvens.append({"img": escala, "x": x, "base_y": base_y, "vel": vel, "phase": phase})
 
         # --- LOGO DO JOGO (RUNNING FOX) ---
-        try:
-            logo_path = get_asset_path("imagens_pygame/titulo.png")
-            self.logo_img = pygame.image.load(logo_path).convert_alpha()
-            self.logo_img = pygame.transform.smoothscale(self.logo_img, (int(SCREENWIDTH * 0.65), int(SCREENHEIGHT * 0.25)))
-        except Exception:
-            self.logo_img = pygame.Surface((500,120))
-            self.logo_img.fill((255,120,0))
+        logo_path = "imagens_pygame/titulo.png"
+        self.logo_img = pygame.image.load(logo_path).convert_alpha()
+        self.logo_img = pygame.transform.smoothscale(self.logo_img, (int(SCREENWIDTH * 0.65), int(SCREENHEIGHT * 0.25)))
         self.logo_rect = self.logo_img.get_rect(center=(SCREENWIDTH // 2, 150))
 
     def handle_event(self, event):
@@ -97,10 +75,7 @@ class Start(BaseScreen):
         self.display.blit(self.logo_img, self.logo_rect)
 
     def run(self):
-        if self.bg:
-            self.display.blit(self.bg, (0, 0))
-        else:
-            self.display.fill((20,20,60))
+        self.display.blit(self.bg, (0, 0))
         self.mover_nuvens()
         self.desenhar_logo()
 
@@ -116,24 +91,21 @@ class Start(BaseScreen):
 
 # --- TELA DE LEVEL ---
 class Level(BaseScreen):
-    def _init_(self, display, gsm):
-        super()._init_(display, gsm, "imagens_pygame/level_1.png")
+    def __init__(self, display, gsm):
+        super().__init__(display, gsm, "imagens_pygame/level_1.png")
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
             self.gsm.set_state('end')
 
     def run(self):
-        if self.bg:
-            self.display.blit(self.bg, (0, 0))
-        else:
-            self.display.fill((30,30,30))
+        self.display.blit(self.bg, (0, 0))
         self.draw_centered("LEVEL - Pressione [E] para encerrar", self.font_text, SCREENHEIGHT - 100)
 
 # --- TELA FINAL ---
 class End(BaseScreen):
-    def _init_(self, display, gsm):
-        super()._init_(display, gsm, "imagens_pygame/game_over.png")
+    def __init__(self, display, gsm):
+        super().__init__(display, gsm, "imagens_pygame/game_over.png")
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -144,15 +116,12 @@ class End(BaseScreen):
                 sys.exit()
 
     def run(self):
-        if self.bg:
-            self.display.blit(self.bg, (0, 0))
-        else:
-            self.display.fill((0,0,0))
+        self.display.blit(self.bg, (0, 0))
         self.draw_centered("Pressione [R] para reiniciar ou [Q] para sair", self.font_text, SCREENHEIGHT // 2)
 
 # --- GERENCIADOR DE ESTADOS ---
 class GameStateManager:
-    def _init_(self, currentState):
+    def __init__(self, currentState):
         self.currentState = currentState
 
     def get_state(self):
