@@ -33,7 +33,7 @@ def init_audio(base_dir):
     som_troca_fase = pygame.mixer.Sound(p("sons/sons/fases.mp3"))
     som_game_over = pygame.mixer.Sound(p("sons/sons/game_over.mp3"))
 
-    som_movimento.set_volume(0.6)
+    som_movimento.set_volume(0.3)
     som_start.set_volume(0.8)
     som_troca_fase.set_volume(0.8)
     som_game_over.set_volume(1.0)
