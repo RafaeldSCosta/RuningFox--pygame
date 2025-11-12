@@ -253,7 +253,7 @@ def mostrar_end_screen(screen, imagem_path, duracao=2500):
     screen.blit(img, (0, 0))
     pygame.display.update()
     pygame.time.delay(duracao)
-```# filepath: c:\Users\lpr71\OneDrive\Desktop\CODE\RuningFox--pygame\RuningFox--pygame\screens.py
+# filepath: c:\Users\lpr71\OneDrive\Desktop\CODE\RuningFox--pygame\RuningFox--pygame\screens.py
 """
 screens.py
 
