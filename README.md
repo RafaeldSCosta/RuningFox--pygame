@@ -1,4 +1,4 @@
-NTEGRANTES DO GRUPO:
+INTEGRANTES DO GRUPO:
 
 Julia Mendes, Livia Pinheiro e Rafael dos Santos
 
