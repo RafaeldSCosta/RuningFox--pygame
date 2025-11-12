@@ -23,7 +23,7 @@ class Raposa:
     - tamanho_raposa: tamanho do sprite (largura, altura)
     - ajuste_y_raposa: correção vertical ao desenhar (offset visual)
     """
-    def _init_(self):
+    def __init__(self):
         """Carrega sprites, escala-os e inicializa parâmetros de movimento."""
         # --- Sprites da raposa ---
         TAMANHO_RAPOSA = (50, 50)
