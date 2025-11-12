@@ -2,6 +2,9 @@ from pathlib import Path
 import json
 import pygame
 
+
+# CÓDIGO GERADO PELO CHAT GPT
+
 # Arquivo para salvar scores (Path)
 SCORES_FILE = Path("scores.json")
 
