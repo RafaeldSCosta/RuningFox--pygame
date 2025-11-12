@@ -28,7 +28,7 @@ class Fases:
         print(f"🌾 Indo para a fase {self.fase}!")
 
         if self.fase == 2:
-            self.area_ovos = pg.Rect(475, 100, 100, 150)
+            self.area_ovos = pg.Rect(475, 100, 100, 100)
             self.v_dif = 1.8
             try:
                 self.area_fazenda = pg.Rect(0, 0, 1, 1)
