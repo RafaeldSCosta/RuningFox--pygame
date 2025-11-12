@@ -7,7 +7,7 @@ class Fases:
         self.v_dif = 0
 
         # --- Áreas e posições ---
-        self.area_fazenda = pg.Rect(120, 50, 100, 100)
+        self.area_fazenda = pg.Rect(120, 50, 100, 40)
         self.area_ovos = pg.Rect(0, 0, 1, 1)
         self.y_posicoes_fase1 = [195, 295, 395, 495, 595, 695]
         self.y_posicoes_fase2 = [330, 470, 610]
@@ -28,7 +28,7 @@ class Fases:
         print(f"🌾 Indo para a fase {self.fase}!")
 
         if self.fase == 2:
-            self.area_ovos = pg.Rect(475, 100, 100, 100)
+            self.area_ovos = pg.Rect(475, 100, 100, 50)
             self.v_dif = 1.8
             try:
                 self.area_fazenda = pg.Rect(0, 0, 1, 1)

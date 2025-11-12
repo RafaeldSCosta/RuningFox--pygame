@@ -1,7 +1,15 @@
 [
     {
         "name": "rafael",
-        "time":10.0
+        "time": 10.0
+    },
+    {
+        "name": "julia",
+        "time": 13.252
+    },
+    {
+        "name": "rafael",
+        "time": 14.134
     },
     {
         "name": "rafael",
@@ -10,9 +18,5 @@
     {
         "name": "rafael",
         "time": 27.99
-    },
-    {
-        "name": "julia",
-        "time": 13.252
-     }
+    }
 ]
