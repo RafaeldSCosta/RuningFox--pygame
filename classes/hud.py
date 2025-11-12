@@ -1,4 +1,3 @@
-# classes/hud.py
 import pygame as pg
 
 
