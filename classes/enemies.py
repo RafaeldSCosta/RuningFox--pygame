@@ -29,7 +29,7 @@ class Inimigos:
         # Definimos uma tupla (largura, altura) que será usada para escalar
         # todas as imagens dos jacarés. Usamos list comprehension para
         # carregar e escalar os frames de forma compacta.
-        TAMANHO_JACARE = (70, 50)
+        TAMANHO_JACARE = (60, 50)
         self.jacare_frames = [
             pg.transform.scale(
                 pg.image.load(f"imagens_pygame/jac{i}.png").convert_alpha(),
@@ -43,7 +43,7 @@ class Inimigos:
         # (por exemplo, arquivo não encontrado). Em caso de erro, é
         # impresso um aviso e o frame é ignorado — isso evita quebrar o jogo
         # se faltar alguma imagem.
-        TAMANHO_RATAZANA = (100, 50)
+        TAMANHO_RATAZANA = (90, 50)
         self.ratazana_frames = []
         for i in range(1, 5):
             caminho = f"imagens_pygame/rat{i}.png"
@@ -67,7 +67,7 @@ class Inimigos:
         ]
 
         # --- ESCORPIÕES (fase 2) ---
-        TAMANHO_ESC = (70, 50)
+        TAMANHO_ESC = (60, 50)
         self.esc_frames = [
             pg.transform.scale(
                 pg.image.load(f"imagens_pygame/esc{i}.png").convert_alpha(),
@@ -79,7 +79,7 @@ class Inimigos:
         # --- COBRAS (iguais nas duas fases) ---
         # Observação: o loop pula quando i == 4 — isso provavelmente ocorre
         # porque a imagem de índice 4 não existe ou é indesejada.
-        TAMANHO_COBRA = (160, 50)
+        TAMANHO_COBRA = (110, 50)
         self.cobra_frames = []
         for i in range(1, 9):
             if i == 4:
