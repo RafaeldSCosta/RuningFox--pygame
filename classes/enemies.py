@@ -35,7 +35,7 @@ class Inimigos:
                 pg.image.load(f"imagens_pygame/jac{i}.png").convert_alpha(),
                 TAMANHO_JACARE,
             )
-            for i in range(1, 10)
+            for i in range(1, 4)
         ]
 
         # --- RATAZANAS (substituem os jacarés na fase 2) ---
